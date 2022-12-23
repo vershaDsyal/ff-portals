@@ -36,6 +36,30 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    
+    /**
+     * Get employee list
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function allEmployeeList()
+    {
+        $EmployeeList = DB::table('users')
+            ->select('users.*')
+            ->where('users.active',1)
+            ->where('users.Non_Employee', '!=' , 1)
+            ->orderBy('users.name','asc')->get();
+        
+        if($EmployeeList){
+            $result = array('success' => true, 'EmployeeList' => $EmployeeList);
+        }else{
+
+            $result = array('success' => false);
+        }
+
+        return response()->json($result);
+    }
+    
 
 
     /**
