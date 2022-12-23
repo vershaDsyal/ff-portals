@@ -60,6 +60,23 @@ class HomeController extends Controller
         return response()->json($result);
     }
     
+    /**
+     * Get temporary loaded employee list
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function allTempUpload()
+    {
+        $TempEmployeeList = DB::select(' SELECT * from users_loaded');
+        if($TempEmployeeList){
+            $result = array('success' => true, 'TempEmployeeList' => $TempEmployeeList);
+        }else{
+
+            $result = array('success' => false);
+        }
+
+        return response()->json($result);
+    }
 
 
     /**
